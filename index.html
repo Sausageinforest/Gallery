@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLENKA // ARCHIVE</title>
+  
+  <!-- Подключение острых геометрических шрифтов -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500;800&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS RESET & VARIABLES */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #090909;
+      --panel: #111111;
+      --text: #e6e6e6;
+      --accent: #ffffff;
+      --border: #1f1f1f;
+      --border-thick: 2px solid #2a2a2a;
+      
+      /* Острые шрифты */
+      --font-sharp: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      line-height: 1.4;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3 {
+      font-family: var(--font-sharp);
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+    }
+
+    .mono {
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    /* HEADER / HERO */
+    header {
+      border-bottom: var(--border-thick);
+      padding: 3.5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-end;
+      background-color: var(--bg);
+    }
+
+    .brand h1 {
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-weight: 900;
+      line-height: 0.85;
+      color: var(--accent);
+    }
+
+    .brand p {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 1.2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .stats {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-align: right;
+      color: #666;
+      border-left: 1px solid var(--border);
+      padding-left: 1.5rem;
+      line-height: 1.6;
+    }
+
+    /* MANIFESTO SECTION */
+    .manifesto {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      border-bottom: var(--border-thick);
+    }
+
+    .manifesto-label {
+      padding: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #555;
+      border-right: 1px solid var(--border);
+      background: var(--panel);
+      letter-spacing: 0.05em;
+    }
+
+    .manifesto-text {
+      padding: 2rem;
+      font-size: 1.15rem;
+      font-weight: 300;
+      max-width: 800px;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    /* GALLERY GRID (BRUTALIST GEOMETRY) */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 0;
+      border-bottom: var(--border-thick);
+      background-color: var(--border); /* Цвет сетки между фото */
+    }
+
+    .photo-card {
+      position: relative;
+      background-color: #000;
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* Asymmetric Grid Spanning */
+    .photo-card.col-8 { grid-column: span 8; }
+    .photo-card.col-4 { grid-column: span 4; }
+    .photo-card.col-6 { grid-column: span 6; }
+    .photo-card.col-12 { grid-column: span 12; }
+
+    .photo-wrapper {
+      width: 100%;
+      height: 100%;
+      min-height: 450px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* ЧБ фильтр с повышенным контрастом */
+      filter: grayscale(100%) contrast(130%);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.02);
+      filter: grayscale(100%) contrast(150%);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      background-color: var(--bg);
+    }
+
+    .contact-block h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .contact-links {
+      list-style: none;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .contact-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-links a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .contact-links a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 900px) {
+      .manifesto {
+        grid-template-columns: 1fr;
+      }
+      .manifesto-label {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .photo-card.col-8,
+      .photo-card.col-4,
+      .photo-card.col-6 {
+        grid-column: span 12;
+      }
+      .photo-wrapper {
+        min-height: 350px;
+      }
+      footer {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <h1>PLENKA</h1>
+      <p>Ч/Б</p>
+    </div>
+    <div class="stats">
+      <div>АРХИВ: 2024–2026</div>
+      <div>ФОРМАТ: 35MM / DIGITAL</div>
+    </div>
+  </header>
+
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div class="manifesto-label">
+      [ КОНЦЕПТ ]
+    </div>
+    <div class="manifesto-text">
+      Красота кадра лежит в композиции, Ч/Б лишь помогает не отвлекаться на мелочи.
+    </div>
+  </section>
+
+  <!-- BRUTALIST GALLERY GRID (12 PHOTOS) -->
+  <main class="gallery">
+
+    <!-- 1 -->
+    <article class="photo-card col-8">
+      <div class="photo-wrapper">
+        <img src="1.jpg" alt="Фото 1">
+      </div>
+    </article>
+
+    <!-- 2 -->
+    <article class="photo-card col-4">
+      <div class="photo-wrapper">
+        <img src="2.jpg" alt="Фото 2">
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="photo-card col-4">
+      <div class="photo-wrapper">
+        <img src="3.jpg" alt="Фото 3">
+      </div>
+    </article>
+
+    <!-- 4 -->
+    <article class="photo-card col-8">
+      <div class="photo-wrapper">
+        <img src="4.jpg" alt="Фото 4">
+      </div>
+    </article>
+
+    <!-- 5 -->
+    <article class="photo-card col-6">
+      <div class="photo-wrapper">
+        <img src="5.jpg" alt="Фото 5">
+      </div>
+    </article>
+
+    <!-- 6 -->
+    <article class="photo-card col-6">
+      <div class="photo-wrapper">
+        <img src="6.jpg" alt="Фото 6">
+      </div>
+    </article>
+
+    <!-- 7 (Центральный панорамный/акцентный кадр) -->
+    <article class="photo-card col-12">
+      <div class="photo-wrapper" style="min-height: 600px;">
+        <img src="7.jpg" alt="Фото 7">
+      </div>
+    </article>
+
+    <!-- 8 -->
+    <article class="photo-card col-8">
+      <div class="photo-wrapper">
+        <img src="8.jpg" alt="Фото 8">
+      </div>
+    </article>
+
+    <!-- 9 -->
+    <article class="photo-card col-4">
+      <div class="photo-wrapper">
+        <img src="9.jpg" alt="Фото 9">
+      </div>
+    </article>
+
+    <!-- 10 -->
+    <article class="photo-card col-4">
+      <div class="photo-wrapper">
+        <img src="10.jpg" alt="Фото 10">
+      </div>
+    </article>
+
+    <!-- 11 -->
+    <article class="photo-card col-4">
+      <div class="photo-wrapper">
+        <img src="11.jpg" alt="Фото 11">
+      </div>
+    </article>
+
+    <!-- 12 -->
+    <article class="photo-card col-4">
+      <div class="photo-wrapper">
+        <img src="12.jpg" alt="Фото 12">
+      </div>
+    </article>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="contact-block">
+      <h2>СВЯЗЬ / КОНТАКТ</h2>
+      <p class="mono" style="color: #555; font-size: 0.8rem;">ПО ВОПРОСАМ ПУБЛИКАЦИЙ И СОТРУДНИЧЕСТВА</p>
+    </div>
+    <div>
+      <ul class="contact-links">
+        <li>EMAIL: <a href="mailto:contact@domain.com">contact@domain.com</a></li>
+        <li>TELEGRAM: <a href="#">@username</a></li>
+        <li>INSTAGRAM: <a href="#">@arch_mono</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
